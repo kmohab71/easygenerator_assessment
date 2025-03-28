@@ -1,0 +1,16 @@
+# Documentation
+
+## Start Script
+
+The following command is used to build and start the services defined in the `docker-compose.yml` file in detached mode:
+
+- `docker compose -f docker-compose.yml up --build -d`
+
+### Explanation:
+- `-f docker-compose.yml`: Specifies the Docker Compose file to use.
+- `up`: Builds, (re)creates, starts, and attaches to containers for a service.
+- `--build`: Forces the build of images before starting the containers.
+- `-d`: Runs the containers in detached mode (in the background).
+
+This command is typically used to initialize and run the application stack defined in the `docker-compose.yml` file.
+
