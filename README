@@ -14,3 +14,10 @@ The following command is used to build and start the services defined in the `do
 
 This command is typically used to initialize and run the application stack defined in the `docker-compose.yml` file.
 
+## API Documentation
+
+The API documentation is available and can be accessed using Swagger at the following URL:
+
+- [Swagger API Documentation](http://localhost:3000/api)
+
+This provides an interactive interface to explore and test the API endpoints.
