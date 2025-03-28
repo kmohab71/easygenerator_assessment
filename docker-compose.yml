@@ -2,7 +2,7 @@ version: '3.8'
 services:
   frontend:
     container_name: frontend
-    image: frontend
+    # image: frontend
     build:
       context: ./frontend
       target: production
@@ -12,12 +12,12 @@ services:
       - nestjs-network
   backend:
       container_name: backend
-      image: backend
+      # image: backend
       build:
           context: ./backend
           target: production
       ports:
-          - 4000:4000
+          - 3000:3000
       networks:
           - nestjs-network
       working_dir: /app
@@ -25,18 +25,21 @@ services:
           - ./:/app
           - /app/node_modules
       
-      command: npm run start:prod
+      # command: npm run start:prod
       restart: unless-stopped  
 
   mongodb:
-    image: docker.io/bitnami/mongodb:8.0
+    image: mongo:8.0
     ports:
       - "27017:27017"
     volumes:
-      - 'mongodb_data:/bitnami/mongodb'   
+      - mongodb_data:/data/db
     networks:
       - nestjs-network
 networks:
   nestjs-network:
     driver: bridge
+volumes:
+    mongodb_data:
+      driver: local
 # This is a production version of the docker-compose file.

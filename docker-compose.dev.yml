@@ -2,41 +2,47 @@
 
   services:
     frontend:
+      container_name: frontend
       build:
         context: ./frontend
         target: development
       volumes:
-        - .:/usr/src/app
-        - /usr/src/app/node_modules
+        - ./frontend:/app
+        # - /usr/src/app/node_modules
       ports:
-        - 3000:3000
-      command: npm run dev
+        - 5173:5173
+      command: npm run dev --host
       networks:
         - nestjs-network
     backend:
-        container_name: api-dev
-        image: api-dev
+        container_name: backend
+        # image: api-dev
         build:
             context: ./backend
             target: development
             # dockerfile: ./Dockerfile
         ports:
-            - 4000:4000
+            - 3000:3000
         networks:
             - nestjs-network
         working_dir: /app
         volumes:
-            - ./:/app
-            - /app/node_modules
+            - ./backend:/app
+            # - /app/node_modules
         command: npm run start:dev
         restart: unless-stopped
     mongodb:
-        image: docker.io/bitnami/mongodb:8.0
+        image: mongo:8.0
         ports:
           - "27017:27017"
+        networks:
+          - nestjs-network
         volumes:
-          - 'mongodb_data:/bitnami/mongodb'
+          - mongodb_data:/bitnami/mongodb
   networks:
     nestjs-network:
       driver: bridge
+  volumes:
+    mongodb_data:
+      driver: local
   # This is a development version of the docker-compose file.
